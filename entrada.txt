@@ -1,0 +1,3 @@
+Este é um arquivo de texto de exemplo criado para o minicurso.
+O Shell Script vai encontrar este arquivo na pasta, ver que a extensao e .txt e jogar para o Python processar.
+A orquestração entre ferramentas transforma tarefas chatas em automações incríveis!
