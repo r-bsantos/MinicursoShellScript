@@ -2,6 +2,7 @@
 
 Material de estudo completo e **formatado** (com explicações, exemplos, exercícios e scripts de produção), focado em administração de sistemas e automação.
 
+<<<<<<< HEAD
 ---
 
 ## Guia Rápido do Editor VI
@@ -38,6 +39,8 @@ Como muitos de nossos scripts serão criados e alterados diretamente no terminal
 
 ---
 
+=======
+>>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
 ## Módulo 0 — Sobrevivência no Linux (Conceitos Essenciais)
 
 Antes de programar, é fundamental entender onde estamos pisando. O Shell Script interage intimamente com o sistema operacional.
@@ -90,23 +93,27 @@ O `cron` é o "despertador" do Linux. Ele lê o arquivo `crontab` e executa scri
 
 A primeira linha sempre define qual interpretador executará o script (Shebang):
 
-```bash
+```
 #!/bin/bash
 # O jogo da velha (#) serve para fazer comentários ignorados pelo sistema.
 clear
 echo "Olá! Este é meu primeiro script."
+
+
 ```
 
 ### 1.3. Permissões de Execução
 
 Sistemas Linux nascem seguros. Um arquivo de texto recém-criado não pode ser executado.
 
-```bash
+```
 # Dando permissão de execução
 chmod +x meu_script.sh
 
 # Executando
 ./meu_script.sh
+
+
 ```
 
 ## Módulo 2 — Variáveis, Argumentos e Aritmética
@@ -115,11 +122,13 @@ chmod +x meu_script.sh
 
 Diferente de outras linguagens, em Shell não se usa espaços ao lado do sinal de igual.
 
-```bash
+```
 # CORRETO
 usuario="Robson"
 # Chamando a variável (sempre use $ para ler o conteúdo)
 echo "Bem-vindo, $usuario"
+
+
 ```
 
 ### 2.2. Recebendo Argumentos do Terminal
@@ -127,11 +136,18 @@ echo "Bem-vindo, $usuario"
 Quando você roda um script passando informações logo à frente dele no terminal (ex: `./script.sh arg1 arg2`), o Shell automaticamente guarda esses valores em variáveis especiais para você usar lá dentro.
 
 * `$1`, `$2`, `$3`... = Representam o primeiro, segundo, terceiro argumento, etc.
+
 * `$@` = Todos os argumentos passados, em formato de lista.
+
 * `$#` = A quantidade total de argumentos passados.
 
 **Exemplo prático (`saudacao.sh`):**
+<<<<<<< HEAD
 ```bash
+=======
+
+```
+>>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
 #!/bin/bash
 
 # Exibindo os dados recebidos pelo terminal
@@ -139,12 +155,14 @@ echo "Total de informações recebidas: $#"
 echo "A primeira palavra foi: $1"
 echo "A segunda palavra foi: $2"
 echo "Lista completa de tudo que foi digitado: $@"
+
+
 ```
 *Se você rodar o comando: `./saudacao.sh Linux Automação`, a saída na tela será "Linux" na variável `$1` e "Automação" na variável `$2`.*
 
 ### 2.3. Operações Aritméticas (com `expr` ou duplo parênteses)
 
-```bash
+```
 #!/bin/bash
 x=10
 y=3
@@ -152,13 +170,15 @@ y=3
 soma=$((x + y))
 resto=$((x % y))
 echo "Soma: $soma | Resto: $resto"
+
+
 ```
 
 ## Módulo 3 — Condicionais (`if` / `else`)
 
 ### 3.1. Estrutura Base
 
-```bash
+```
 if [ condição ]; then
   # Comandos se verdadeiro
 elif [ outra_condição ]; then
@@ -166,6 +186,8 @@ elif [ outra_condição ]; then
 else
   # Comandos se tudo falhar
 fi
+
+
 ```
 *(Nota: O espaço dentro dos colchetes `[ ]` é obrigatório!).*
 
@@ -174,6 +196,7 @@ fi
 Em Shell Script, os operadores mudam dependendo do tipo de dado que você está avaliando. É muito importante não confundir operadores numéricos com os de texto!
 
 * **Comparação de Números:**
+<<<<<<< HEAD
   * `-eq` (equal / igual a)
   * `-ne` (not equal / diferente de)
   * `-gt` (greater than / maior que)
@@ -195,6 +218,42 @@ Em Shell Script, os operadores mudam dependendo do tipo de dado que você está 
 **Exemplos Práticos com os Operadores:**
 
 ```bash
+=======
+
+  * `-eq` (equal / igual a)
+
+  * `-ne` (not equal / diferente de)
+
+  * `-gt` (greater than / maior que)
+
+  * `-lt` (less than / menor que)
+
+  * `-ge` (greater or equal / maior ou igual a)
+
+  * `-le` (less or equal / menor ou igual a)
+
+* **Comparação de Strings (Textos):**
+
+  * `=` (igual)
+
+  * `!=` (diferente)
+
+  * `-z` (string está vazia / tamanho zero)
+
+  * `-n` (string NÃO está vazia)
+
+* **Verificação de Arquivos e Diretórios:**
+
+  * `-e` (arquivo ou diretório existe)
+
+  * `-d` (existe e é um diretório)
+
+  * `-f` (existe e é um arquivo comum)
+
+**Exemplos Práticos com os Operadores:**
+
+```
+>>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
 #!/bin/bash
 
 # ==========================================
@@ -203,6 +262,59 @@ Em Shell Script, os operadores mudam dependendo do tipo de dado que você está 
 qtd_erros=0
 if [ "$qtd_erros" -eq 0 ]; then
     echo "Sucesso: Nenhum erro encontrado (-eq 0)."
+<<<<<<< HEAD
+fi
+
+codigo_saida=1
+if [ "$codigo_saida" -ne 0 ]; then
+    echo "Alerta: Ocorreu um problema, código de saída não é zero (-ne 0)."
+fi
+
+# ==========================================
+# 2. Testando Números: Maior e Menor (-gt, -lt, -ge, -le)
+# ==========================================
+uso_disco=85
+if [ "$uso_disco" -gt 90 ]; then
+    echo "Crítico: Uso de disco MAIOR QUE 90% (-gt)."
+elif [ "$uso_disco" -ge 80 ]; then
+    echo "Atenção: Uso de disco MAIOR OU IGUAL a 80% (-ge)."
+fi
+
+tempo_espera=15
+if [ "$tempo_espera" -lt 10 ]; then
+    echo "Rápido: Tempo MENOR QUE 10 segundos (-lt)."
+elif [ "$tempo_espera" -le 20 ]; then
+    echo "Aceitável: Tempo MENOR OU IGUAL a 20 segundos (-le)."
+fi
+
+# ==========================================
+# 3. Testando Strings (Textos) e Valores do Sistema
+# ==========================================
+# O Shell pega automaticamente o usuário logado usando a variável nativa $USER
+# (ou executando o comando 'whoami')
+usuario_logado=$USER
+
+if [ "$usuario_logado" = "root" ]; then
+    echo "Acesso total liberado. Olá, Administrador!"
+else
+    echo "Acesso comum. Bem-vindo(a), $usuario_logado!"
+fi
+
+nome=""
+if [ -z "$nome" ]; then
+    echo "Erro: O nome não foi preenchido (-z detecta vazio)!"
+fi
+
+# ==========================================
+# 4. Testando Arquivos
+# ==========================================
+caminho="/etc/passwd"
+if [ -f "$caminho" ]; then
+    echo "O arquivo foi encontrado no sistema (-f)!"
+else
+    echo "Arquivo não existe."
+=======
+>>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
 fi
 
 codigo_saida=1
@@ -254,6 +366,8 @@ if [ -f "$caminho" ]; then
 else
     echo "Arquivo não existe."
 fi
+
+
 ```
 
 ## Módulo 4 — Repetição (Loops)
@@ -262,16 +376,18 @@ fi
 
 Para iterar sobre listas ou arquivos:
 
-```bash
+```
 #!/bin/bash
 for arquivo in /var/log/*.log; do
   echo "Encontrado o log: $arquivo"
 done
+
+
 ```
 
 ### 4.2. Laço `while` (Menus Interativos)
 
-```bash
+```
 #!/bin/bash
 while true; do
   echo "1) Mostrar Data"
@@ -286,6 +402,8 @@ while true; do
     echo "Opção inválida"
   fi
 done
+
+
 ```
 
 ## Módulo 5 — Integração e Background
@@ -297,7 +415,12 @@ O Shell orquestra muito bem outras ferramentas. Você não precisa fazer tudo em
 Abaixo, o nosso Shell Script vai procurar todos os arquivos `.txt` na pasta e enviar um a um para um script Python processar:
 
 **Script Shell (`orquestrador.sh`):**
+<<<<<<< HEAD
 ```bash
+=======
+
+```
+>>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
 #!/bin/bash
 echo "Iniciando orquestração com Python..."
 
@@ -312,6 +435,8 @@ for arquivo in *.txt; do
 done
 
 echo "Processamento em lote concluído!"
+
+
 ```
 *(Nota para o Laboratório: Certifique-se de criar os arquivos de exemplo `processador.py` e `entrada.txt` no mesmo diretório antes de rodar o `orquestrador.sh`).*
 
@@ -319,8 +444,10 @@ echo "Processamento em lote concluído!"
 
 Se você fechar o terminal conectado ao servidor, seu script morre. O comando `nohup` junto com o `&` previnem isso.
 
-```bash
+```
 nohup ./script_demorado.sh > relatorio.out 2> erros.log &
+
+
 ```
 *Isto garante que a saída padrão vai para relatorio, os erros para um log específico e roda em segundo plano.*
 
@@ -332,7 +459,7 @@ Nesta etapa, vamos aplicar os conceitos estudados em cenários práticos de admi
 
 Este script faz uma radiografia do sistema e identifica possíveis gargalos de infraestrutura. Pode ser rodado por usuários comuns.
 
-```bash
+```
 #!/bin/bash
 # relatorio_saude.sh
 
@@ -359,13 +486,15 @@ ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 4
 
 echo "========================================"
 echo "Relatório gerado com sucesso."
+
+
 ```
 
 ### 6.2. Rotina de Backup com Rotação (Retenção)
 
 Fazer backup é fácil. Difícil é gerenciar o disco cheio. Este script compacta dados e exclui backups com mais de 7 dias.
 
-```bash
+```
 #!/bin/bash
 # backup_rotativo.sh
 
@@ -394,13 +523,15 @@ fi
 # Rotação (Limpeza de arquivos antigos)
 echo "[$(date)] Limpando backups com mais de $RETENCAO dias..." >> "$LOG"
 find "$DESTINO" -type f -name "*.tar.gz" -mtime +$RETENCAO -exec rm {} \; >> "$LOG" 2>&1
+
+
 ```
 
 ### 6.3. Processamento de Dados em Lote (Leitura de CSV)
 
 Perfeito para laboratórios! Em vez de alterar o sistema, vamos automatizar a leitura de um relatório (arquivo `dados_alunos.csv`), calcular quem foi aprovado e gerar um novo log.
 
-```bash
+```
 #!/bin/bash
 # processa_notas.sh
 
@@ -431,13 +562,15 @@ while IFS=',' read -r matricula nome curso nota; do
 done < "$ARQUIVO"
 
 echo "Processamento concluído. Verifique o arquivo $RELATORIO."
+
+
 ```
 
 ### 6.4. Monitor de Serviços com Auto-Recuperação
 
 Se um serviço vital cair, o Shell Script pode reerguê-lo. *(Nota: Iniciar/parar serviços geralmente exige privilégios de root).*
 
-```bash
+```
 #!/bin/bash
 # monitor_servico.sh
 
@@ -456,13 +589,15 @@ else
         echo "[$(date)] CRÍTICO: Intervenção humana necessária." >> "$LOG"
     fi
 fi
+
+
 ```
 
 ### 6.5. Sentinela de Conectividade (Redes)
 
 Verifica se links de internet ou equipamentos da rede interna estão respondendo.
 
-```bash
+```
 #!/bin/bash
 # sentinela_rede.sh
 
@@ -478,13 +613,15 @@ for host in "${ALVOS[@]}"; do
         echo -e "[\033[31m OFFLINE\033[0m] $host"
     fi
 done
+
+
 ```
 
 ### 6.6. Faxina no Sistema (Limpeza de RAM, Caches e Temp)
 
 Script utilitário para liberar espaço em disco e memória. Dividido em tarefas de usuário comum (seguro) e tarefas administrativas (`sudo`).
 
-```bash
+```
 #!/bin/bash
 # faxina_sistema.sh
 
@@ -506,13 +643,15 @@ echo "[3/3] Desfragmentando Memória RAM (drop caches)..."
 sudo sync; echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
 
 echo "Faxina concluída! O sistema deve estar respirando melhor agora."
+
+
 ```
 
 ### 6.7. Organizador Automático de Arquivos (Downloads)
 
 Excelente script para rodar no `cron` a cada hora. Ele pega sua pasta bagunçada e joga cada arquivo no diretório correto com base na extensão. 100% seguro para usuários comuns!
 
-```bash
+```
 #!/bin/bash
 # organiza_arquivos.sh
 
@@ -537,15 +676,22 @@ mv "$ORIGEM"/*.pdf "$ORIGEM"/*.docx "$ORIGEM"/*.txt "$DEST_DOC" 2>/dev/null
 if [ $? -eq 0 ]; then echo "Documentos movidos com sucesso."; fi
 
 echo "Organização concluída!"
+
+
 ```
 
 ## Checklist Final de Domínio Técnico
 
 Ao final do curso você deve ser capaz de:
 
-* [ ] Navegar no Linux compreendendo como os pipes (`|`) e redirecionamentos (`>`, `>>`) orquestram o sistema.
-* [ ] Criar scripts com variáveis, cálculos e receber argumentos de fora (`$1`).
-* [ ] Construir lógicas de decisão robustas usando `if` e laços de repetição (`for`, `while`).
-* [ ] Tratar arquivos em lote (como leitura de `.csv` e movimentação automática).
-* [ ] Orquestrar ferramentas de outras linguagens (como Python) usando Shell.
-* [ ] Construir ferramentas que rodem de forma contínua, agendadas via `crontab` e realizem manutenção preventiva.
+* \[ \] Navegar no Linux compreendendo como os pipes (`|`) e redirecionamentos (`>`, `>>`) orquestram o sistema.
+
+* \[ \] Criar scripts com variáveis, cálculos e receber argumentos de fora (`$1`).
+
+* \[ \] Construir lógicas de decisão robustas usando `if` e laços de repetição (`for`, `while`).
+
+* \[ \] Tratar arquivos em lote (como leitura de `.csv` e movimentação automática).
+
+* \[ \] Orquestrar ferramentas de outras linguagens (como Python) usando Shell.
+
+* \[ \] Construir ferramentas que rodem de forma contínua, agendadas via `crontab` e realizem manutenção preventiva.
