@@ -2,13 +2,41 @@
 
 Material de estudo completo e **formatado** (com explicações, exemplos, exercícios e scripts de produção), focado em administração de sistemas e automação.
 
-## Como utilizar este material (Escolha sua Trilha)
+---
 
-Este minicurso foi desenhado para se adaptar ao nível da turma. Antes de começar, defina com os alunos qual vertente seguir:
+## Guia Rápido do Editor VI
 
-* **Opção 1 (Trilha Completa - Iniciantes):** Foco em ensinar os fundamentos do Linux, estrutura do sistema, conceitos de lógica em Shell (Módulos 0 a 5) e finalização com 1 ou 2 automações do Módulo 6.
+Como muitos de nossos scripts serão criados e alterados diretamente no terminal, é fundamental conhecer os comandos essenciais do editor de texto `vi` (ou `vim`). Para usar qualquer comando abaixo, certifique-se de não estar no modo de digitação apertando a tecla `ESC`.
 
-* **Opção 2 (Trilha Fast-Track - Foco em Automação):** Pula-se a sintaxe básica. Faz-se uma revisão relâmpago do Módulo 0 (para nivelamento de pipes e redirecionamentos) e mergulha-se diretamente no **Módulo 6**, estudando, rodando e adaptando os scripts avançados para o mundo real.
+**Modos de Inserção (Digitação):**
+*   `ESC + i` -> *(insert)* Ativa o modo de inserção (permite que o usuário escreva).
+*   `ESC + a` -> *(append)* Ativa o modo de inserção e posiciona o cursor um caractere à frente do atual.
+*   `ESC + A` -> Ativa o modo de inserção e posiciona o cursor no final da linha.
+*   `ESC + o` -> Ativa o modo de inserção e posiciona o cursor na linha seguinte.
+
+**Edição, Cópia e Cola:**
+*   `ESC + x` -> Apaga o caractere anterior (funciona como backspace/delete).
+*   `ESC + dd` -> Apaga a linha inteira em que o cursor está posicionado.
+*   `ESC + p` -> Cola (a partir do local onde o cursor está posicionado) a linha apagada ou copiada.
+*   `ESC + yy` -> Copia a linha em que o cursor está posicionado.
+*   `ESC + dNd` -> Apaga **N** linhas a partir de onde o cursor está posicionado (ex: `d5d` apaga 5 linhas).
+*   `ESC + yNy` -> Copia **N** linhas a partir de onde o cursor está posicionado (ex: `y3y` copia 3 linhas).
+
+**Busca e Navegação:**
+*   `ESC + :set number` -> Mostra a numeração das linhas.
+*   `ESC + :set nonumber` -> Remove a numeração das linhas.
+*   `ESC + /<texto>` -> Procura o texto especificado. Pressione `n` *(next)* para pular para a próxima ocorrência.
+*   `ESC + :numerodalinha` -> Posiciona o cursor diretamente na linha indicada pelo número (ex: `:15` vai para a linha 15).
+*   `ESC + :1,5 co 52` -> Copia o texto da linha 1 até a linha 5 e cola na linha 52.
+*   `ESC + :1,5 mo 52` -> Move (recorta) o texto da linha 1 até a linha 5 para a linha 52.
+
+**Salvar e Sair:**
+*   `ESC + :w` -> *(write)* Salva o documento e permanece no editor.
+*   `ESC + :w <nome do arquivo>` -> Salva o documento com o nome especificado e permanece no editor.
+*   `ESC + :wq` -> *(write and quit)* Salva o documento e finaliza o editor.
+*   `ESC + :q!` -> *(quit)* Finaliza o editor **SEM** salvar as últimas alterações.
+
+---
 
 ## Módulo 0 — Sobrevivência no Linux (Conceitos Essenciais)
 
@@ -19,17 +47,11 @@ Antes de programar, é fundamental entender onde estamos pisando. O Shell Script
 No Linux, tudo é arquivo e a estrutura de pastas é uma árvore única que nasce na raiz (`/`).
 
 * `/` **(Root):** A raiz do sistema.
-
 * `/bin` e `/sbin`: Onde ficam os binários (comandos executáveis) do sistema (ex: `ls`, `cp`, `ping`).
-
 * `/etc`: Guarda os arquivos de configuração do sistema e dos serviços.
-
 * `/home`: Diretórios pessoais dos usuários comuns (suas pastas, downloads, scripts).
-
 * `/var`: Dados variáveis, como logs do sistema (`/var/log`) e bancos de dados.
-
 * `/tmp`: Arquivos temporários (apagados ao reiniciar).
-
 * `/dev`: Dispositivos de hardware mapeados como arquivos (ex: discos `/dev/sda`).
 
 ### 0.2. Operadores Lógicos e de Fluxo no Terminal
@@ -37,27 +59,16 @@ No Linux, tudo é arquivo e a estrutura de pastas é uma árvore única que nasc
 Para criar automações reais, precisamos conectar comandos.
 
 * `>` **(Redirecionamento de Saída - Sobrescreve):** Joga a saída de um comando para um arquivo, apagando o que havia antes.
-
   * *Exemplo:* `echo "Olá" > arquivo.txt`
-
 * `>>` **(Redirecionamento de Saída - Anexa):** Adiciona a saída ao final do arquivo, sem apagar o conteúdo existente (muito usado para Logs).
-
   * *Exemplo:* `echo "Nova linha" >> arquivo.txt`
-
 * `|` **(Pipe):** "Encanamento". Pega o resultado (saída) do comando da esquerda e injeta como entrada no comando da direita.
-
   * *Exemplo:* `ls -l /etc | grep "network"` (Lista o /etc e filtra apenas linhas com "network").
-
 * `&` **(Background):** Executa um processo em segundo plano, liberando o terminal.
-
   * *Exemplo:* `meu_script.sh &`
-
 * `&&` **(AND Lógico):** Executa o segundo comando **APENAS SE** o primeiro der certo (código de saída 0).
-
   * *Exemplo:* `mkdir nova_pasta && cd nova_pasta`
-
 * `||` **(OR Lógico):** Executa o segundo comando **APENAS SE** o primeiro falhar.
-
   * *Exemplo:* `ping -c 1 google.com || echo "Estamos sem internet!"`
 
 ### 0.3. O Arquivo e Serviço `cron`
@@ -65,11 +76,8 @@ Para criar automações reais, precisamos conectar comandos.
 O `cron` é o "despertador" do Linux. Ele lê o arquivo `crontab` e executa scripts em horários programados automaticamente.
 
 * Para editar seus agendamentos: `crontab -e`
-
 * **Sintaxe (5 estrelas):** `Minuto Hora Dia_do_mês Mês Dia_da_semana Comando`
-
   * `* * * * * /meu_script.sh` (Roda a cada minuto).
-
   * `0 2 * * * /meu_script.sh` (Roda todo dia às 02:00 da manhã).
 
 ## Módulo 1 — Introdução e Primeiros Passos
@@ -123,7 +131,6 @@ Quando você roda um script passando informações logo à frente dele no termin
 * `$#` = A quantidade total de argumentos passados.
 
 **Exemplo prático (`saudacao.sh`):**
-
 ```bash
 #!/bin/bash
 
@@ -133,7 +140,6 @@ echo "A primeira palavra foi: $1"
 echo "A segunda palavra foi: $2"
 echo "Lista completa de tudo que foi digitado: $@"
 ```
-
 *Se você rodar o comando: `./saudacao.sh Linux Automação`, a saída na tela será "Linux" na variável `$1` e "Automação" na variável `$2`.*
 
 ### 2.3. Operações Aritméticas (com `expr` ou duplo parênteses)
@@ -161,23 +167,92 @@ else
   # Comandos se tudo falhar
 fi
 ```
-
 *(Nota: O espaço dentro dos colchetes `[ ]` é obrigatório!).*
 
 ### 3.2. Operadores de Comparação
 
-* **Números:** `-eq` (igual), `-ne` (diferente), `-gt` (maior que), `-lt` (menor que), `-ge` (maior ou igual), `-le` (menor ou igual).
+Em Shell Script, os operadores mudam dependendo do tipo de dado que você está avaliando. É muito importante não confundir operadores numéricos com os de texto!
 
-* **Strings:** `=` (igual), `!=` (diferente), `-z` (vazia).
+* **Comparação de Números:**
+  * `-eq` (equal / igual a)
+  * `-ne` (not equal / diferente de)
+  * `-gt` (greater than / maior que)
+  * `-lt` (less than / menor que)
+  * `-ge` (greater or equal / maior ou igual a)
+  * `-le` (less or equal / menor ou igual a)
 
-* **Arquivos:** `-e` (existe), `-d` (é diretório), `-f` (é arquivo).
+* **Comparação de Strings (Textos):**
+  * `=` (igual)
+  * `!=` (diferente)
+  * `-z` (string está vazia / tamanho zero)
+  * `-n` (string NÃO está vazia)
+
+* **Verificação de Arquivos e Diretórios:**
+  * `-e` (arquivo ou diretório existe)
+  * `-d` (existe e é um diretório)
+  * `-f` (existe e é um arquivo comum)
+
+**Exemplos Práticos com os Operadores:**
 
 ```bash
-# Exemplo Prático: Checar se o usuário é root
-if [ "$USER" = "root" ]; then
-    echo "Você é o administrador."
+#!/bin/bash
+
+# ==========================================
+# 1. Testando Números: Igualdade e Diferença (-eq, -ne)
+# ==========================================
+qtd_erros=0
+if [ "$qtd_erros" -eq 0 ]; then
+    echo "Sucesso: Nenhum erro encontrado (-eq 0)."
+fi
+
+codigo_saida=1
+if [ "$codigo_saida" -ne 0 ]; then
+    echo "Alerta: Ocorreu um problema, código de saída não é zero (-ne 0)."
+fi
+
+# ==========================================
+# 2. Testando Números: Maior e Menor (-gt, -lt, -ge, -le)
+# ==========================================
+uso_disco=85
+if [ "$uso_disco" -gt 90 ]; then
+    echo "Crítico: Uso de disco MAIOR QUE 90% (-gt)."
+elif [ "$uso_disco" -ge 80 ]; then
+    echo "Atenção: Uso de disco MAIOR OU IGUAL a 80% (-ge)."
+fi
+
+tempo_espera=15
+if [ "$tempo_espera" -lt 10 ]; then
+    echo "Rápido: Tempo MENOR QUE 10 segundos (-lt)."
+elif [ "$tempo_espera" -le 20 ]; then
+    echo "Aceitável: Tempo MENOR OU IGUAL a 20 segundos (-le)."
+fi
+
+# ==========================================
+# 3. Testando Strings (Textos) e Valores do Sistema
+# ==========================================
+# O Shell pega automaticamente o usuário logado usando a variável nativa $USER
+# (ou executando o comando 'whoami')
+usuario_logado=$USER
+
+if [ "$usuario_logado" = "root" ]; then
+    echo "Acesso total liberado. Olá, Administrador!"
 else
-    echo "Acesso restrito!"
+    echo "Acesso comum. Bem-vindo(a), $usuario_logado!"
+fi
+
+nome=""
+if [ -z "$nome" ]; then
+    echo "Erro: O nome não foi preenchido (-z detecta vazio)!"
+fi
+
+# ==========================================
+# 4. Testando Arquivos
+# ==========================================
+caminho="/etc/passwd"
+if [ -f "$caminho" ]; then
+    echo "O arquivo foi encontrado no sistema (-f)!"
+else
+    echo "Arquivo não existe."
 fi
 ```
 
@@ -222,7 +297,6 @@ O Shell orquestra muito bem outras ferramentas. Você não precisa fazer tudo em
 Abaixo, o nosso Shell Script vai procurar todos os arquivos `.txt` na pasta e enviar um a um para um script Python processar:
 
 **Script Shell (`orquestrador.sh`):**
-
 ```bash
 #!/bin/bash
 echo "Iniciando orquestração com Python..."
@@ -239,7 +313,6 @@ done
 
 echo "Processamento em lote concluído!"
 ```
-
 *(Nota para o Laboratório: Certifique-se de criar os arquivos de exemplo `processador.py` e `entrada.txt` no mesmo diretório antes de rodar o `orquestrador.sh`).*
 
 ### 5.2. Rodando scripts em "Backstage"
@@ -249,12 +322,11 @@ Se você fechar o terminal conectado ao servidor, seu script morre. O comando `n
 ```bash
 nohup ./script_demorado.sh > relatorio.out 2> erros.log &
 ```
-
 *Isto garante que a saída padrão vai para relatorio, os erros para um log específico e roda em segundo plano.*
 
 ## Módulo 6 — Automação Avançada (Cenários Reais)
 
-*Se você escolheu a Trilha 2, o curso engrena de verdade aqui!*
+Nesta etapa, vamos aplicar os conceitos estudados em cenários práticos de administração de sistemas.
 
 ### 6.1. Relatório de Saúde e Diagnóstico de Gargalos (RAM e Disco)
 
@@ -304,7 +376,11 @@ ARQUIVO="$DESTINO/backup_$DATA.tar.gz"
 RETENCAO=7 # Manter backups por apenas 7 dias
 LOG="$DESTINO/backup.log"
 
-mkdir -p "$DESTINO"
+# Verifica se a pasta de destino NÃO existe (! -d)
+if [ ! -d "$DESTINO" ]; then
+    echo "Pasta de destino não encontrada. Criando $DESTINO..."
+    mkdir -p "$DESTINO"
+fi
 
 echo "[$(date)] Iniciando backup de $ORIGEM..." >> "$LOG"
 tar -czf "$ARQUIVO" "$ORIGEM" 2>/dev/null
@@ -446,6 +522,7 @@ DEST_IMG="$HOME/Imagens/Salvas"
 DEST_DOC="$HOME/Documentos/Organizados"
 
 # Garantindo que as pastas de destino existem
+# Aqui também podemos aplicar a verificação com 'if' explicada anteriormente
 mkdir -p "$DEST_IMG" "$DEST_DOC"
 
 echo "Analisando a pasta: $ORIGEM"
@@ -464,7 +541,7 @@ echo "Organização concluída!"
 
 ## Checklist Final de Domínio Técnico
 
-Seja qual for a trilha escolhida, ao final do curso você deve ser capaz de:
+Ao final do curso você deve ser capaz de:
 
 * [ ] Navegar no Linux compreendendo como os pipes (`|`) e redirecionamentos (`>`, `>>`) orquestram o sistema.
 * [ ] Criar scripts com variáveis, cálculos e receber argumentos de fora (`$1`).
