@@ -37,8 +37,6 @@ Como muitos de nossos scripts serão criados e alterados diretamente no terminal
 
 ---
 
-=======
->>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
 ## Módulo 0 — Sobrevivência no Linux (Conceitos Essenciais)
 
 Antes de programar, é fundamental entender onde estamos pisando. O Shell Script interage intimamente com o sistema operacional.
