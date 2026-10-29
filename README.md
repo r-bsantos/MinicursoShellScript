@@ -2,8 +2,6 @@
 
 Material de estudo completo e **formatado** (com explicações, exemplos, exercícios e scripts de produção), focado em administração de sistemas e automação.
 
-<<<<<<< HEAD
----
 
 ## Guia Rápido do Editor VI
 
@@ -142,12 +140,10 @@ Quando você roda um script passando informações logo à frente dele no termin
 * `$#` = A quantidade total de argumentos passados.
 
 **Exemplo prático (`saudacao.sh`):**
-<<<<<<< HEAD
+
 ```bash
-=======
 
 ```
->>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
 #!/bin/bash
 
 # Exibindo os dados recebidos pelo terminal
@@ -196,7 +192,7 @@ fi
 Em Shell Script, os operadores mudam dependendo do tipo de dado que você está avaliando. É muito importante não confundir operadores numéricos com os de texto!
 
 * **Comparação de Números:**
-<<<<<<< HEAD
+
   * `-eq` (equal / igual a)
   * `-ne` (not equal / diferente de)
   * `-gt` (greater than / maior que)
@@ -218,7 +214,6 @@ Em Shell Script, os operadores mudam dependendo do tipo de dado que você está 
 **Exemplos Práticos com os Operadores:**
 
 ```bash
-=======
 
   * `-eq` (equal / igual a)
 
@@ -253,7 +248,6 @@ Em Shell Script, os operadores mudam dependendo do tipo de dado que você está 
 **Exemplos Práticos com os Operadores:**
 
 ```
->>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
 #!/bin/bash
 
 # ==========================================
@@ -262,7 +256,7 @@ Em Shell Script, os operadores mudam dependendo do tipo de dado que você está 
 qtd_erros=0
 if [ "$qtd_erros" -eq 0 ]; then
     echo "Sucesso: Nenhum erro encontrado (-eq 0)."
-<<<<<<< HEAD
+
 fi
 
 codigo_saida=1
@@ -313,8 +307,7 @@ if [ -f "$caminho" ]; then
     echo "O arquivo foi encontrado no sistema (-f)!"
 else
     echo "Arquivo não existe."
-=======
->>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
+
 fi
 
 codigo_saida=1
@@ -415,12 +408,11 @@ O Shell orquestra muito bem outras ferramentas. Você não precisa fazer tudo em
 Abaixo, o nosso Shell Script vai procurar todos os arquivos `.txt` na pasta e enviar um a um para um script Python processar:
 
 **Script Shell (`orquestrador.sh`):**
-<<<<<<< HEAD
+
 ```bash
-=======
 
 ```
->>>>>>> 4033f632eae5dc98e49d9bb0a1644aae04ac2ccd
+
 #!/bin/bash
 echo "Iniciando orquestração com Python..."
 
